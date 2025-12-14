@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Liste des Produits</h1>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Date d'ajout</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produit in produits %}
+            <tr>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.description }}</td>
+                <td>{{ produit.quantite }}</td>
+                <td>{{ "%.2f"|format(produit.prix) }} €</td>
+                <td>{{ produit.date_ajout.strftime('%d/%m/%Y') }}</td>
+                <td>
+                    <a href="{{ url_for('modifier_produit', id=produit.id) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    <a href="{{ url_for('supprimer_produit', id=produit.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce produit?')">Supprimer</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<a href="{{ url_for('ajouter_produit') }}" class="btn btn-primary">Ajouter un Produit</a>
+{% endblock %}
