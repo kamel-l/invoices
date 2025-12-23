@@ -157,9 +157,9 @@ def sauvegarder_excel(resume, nom_fichier='facture.xlsx'):
 
 lecteur = DatFileReader()
 
-list_invoices = [nom_fichier  for nom_fichier in os. listdir("invoice24")   if os. path. isfile(os. path. join("invoice24", nom_fichier))]
+list_invoices = [nom_fichier  for nom_fichier in os. listdir("invoices")   if os. path. isfile(os. path. join("invoices", nom_fichier))]
 for invoice in list_invoices:
-      contenu = lecteur.lire_texte_simple(f'invoice24/{invoice}')
+      contenu = lecteur.lire_texte_simple(f'invoices/{invoice}')
 
       # Traiter la facture
       parser = FactureParser(contenu[0])
