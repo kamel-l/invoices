@@ -1,7 +1,6 @@
 import os
 from datfilereader import DatFileReader
-
-
+from pathlib import Path
 
 
 def remplacer_symbole_direct(fichier_entree, fichier_sortie, ancien_symbole, nouveau_symbole):
@@ -19,17 +18,22 @@ def remplacer_symbole_direct(fichier_entree, fichier_sortie, ancien_symbole, nou
         with open(fichier_sortie, 'w', encoding='utf-8') as f_sortie:
             f_sortie.write(nouveau_contenu)
 
-        print(f"Le remplacement a été effectué avec succès. Fichier sauvegardé : {fichier_sortie}")
+        print(f"✔️ Remplacement effectué : {fichier_sortie}")
 
     except Exception as e:
-        print(f"Une erreur s'est produite : {str(e)}")
+        print(f"❌ Une erreur s'est produite : {str(e)}")
 
 
-list_invoices = [nom_fichier for nom_fichier in os.listdir("invoices") if
-                     os.path.isfile(os.path.join("invoices", nom_fichier))]
-
-print(list_invoices)
+# --- Partie principale ---
 lecteur = DatFileReader()
-for invoice in list_invoices:
-      
-      remplacer_symbole_direct(invoice, "100002.dat", '%20', '_')      
+source = os.listdir("invoices25")
+
+for invoice in source:
+    # Chemin complet du fichier d'entrée
+    fichier_entree = os.path.join("invoices25", invoice)
+
+    # Chemin complet du fichier de sortie (نفس الاسم بعد التعديل)
+    fichier_sortie = os.path.join("invoices25", invoice)
+
+    # Exécuter le remplacement
+    remplacer_symbole_direct(fichier_entree, fichier_sortie, " ", "_")
